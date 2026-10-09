@@ -1,5 +1,13 @@
 # MapFly: A Benchmark for Prior-Map-Guided Aerial Visual Navigation
 
+[![Project Page](https://img.shields.io/badge/Project_Page-MapFly-087b83)](https://GuYan66.github.io/MapFly/)
+[![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b)](website/assets/MapFly.pdf)
+[![Video](https://img.shields.io/badge/Video-Overview-546e7a)](https://GuYan66.github.io/MapFly/#video)
+
+![MapFly overview: toolkit, dataset, reference policy, and four evaluation tracks](website/assets/project-overview.webp)
+
+## Introduction
+
 A UAV navigates from a first-person view and an annotated 2D map that marks the goal
 — no route instructions, no target description. MapFly provides:
 
@@ -10,6 +18,22 @@ A UAV navigates from a first-person view and an annotated 2D map that marks the 
 - **a toolkit** for task construction, data collection, map rendering and closed-loop
   evaluation of any policy (this repository);
 - **MapFly-Agent**, the reference policy, under `starVLA/examples/uav/`.
+
+The [project page](https://GuYan66.github.io/MapFly/) presents the simulation environments,
+data generation toolchain, dataset, model, and four navigation demonstrations.
+
+## Contents
+
+- [Evaluation tracks](#evaluation-tracks)
+- [Downloads](#downloads)
+- [Install](#install)
+- [Getting started](#getting-started)
+- [Repository](#repository)
+- [Project website](#project-website)
+- [Citation](#citation)
+- [License](#license)
+
+## Evaluation tracks
 
 | Track | Map shows | `--track` | Map directory in MapFly-13K |
 |---|---|---|---|
@@ -93,6 +117,7 @@ and keep its `settings.json` and `ue.log` under `<run>/diagnostics/`.
 | `scripts/` | datagen phases, AirSim settings for a simulator started by hand |
 | `mapgen/` | Unreal Editor capture of OSM / satellite / height maps into scene bundles |
 | `starVLA/` | MapFly-Agent: a starVLA tree; UAV training and eval live in `starVLA/examples/uav/` |
+| `website/` | academic project page, paper, figures, and demonstration videos |
 
 To evaluate against a simulator you started yourself, write its settings with
 `python scripts/emit_airsim_settings.py --scene <id> --sim-mode ComputerVision --output settings.json`,
@@ -109,3 +134,27 @@ ruff format --check . && ruff check . && pytest
 MIT. See [LICENSE](LICENSE). The UE scenes are built from third-party Unreal Engine
 content that keeps its own license; the packages are provided for research use with
 this benchmark.
+
+The project website is adapted from Academic Project Page Template and is licensed
+separately under CC BY-SA 4.0; see [website/TEMPLATE-NOTICE.md](website/TEMPLATE-NOTICE.md).
+Research media and third-party components retain their respective rights.
+
+## Project website
+
+The static website lives in [`website/`](website/). Changes pushed to `main` under
+this directory are deployed automatically to <https://GuYan66.github.io/MapFly/>.
+See [website/README.md](website/README.md) for local preview and editing instructions.
+
+## Citation
+
+The current manuscript uses anonymous author details. This provisional citation
+will be updated when the public bibliographic information is available.
+
+```bibtex
+@unpublished{mapfly,
+  title = {MapFly: A Benchmark for Prior-Map-Guided Aerial Visual Navigation},
+  author = {Anonymous Authors},
+  note = {Manuscript under review},
+  year = {2026}
+}
+```

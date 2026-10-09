@@ -1,0 +1,18 @@
+{
+  "version": 4,
+  "kind": "semantic_stencil_grayscale",
+  "mosaic_min_corner_ue_cm": [0.0, 0.0],
+  "mosaic_max_corner_ue_cm": [600.0, 600.0],
+  "axes": {
+    "image_row0_world": "ue_x_max",
+    "image_col0_world": "ue_y_min"
+  },
+  "stencil_encoding": {
+    "mode": "adjacency_colored_instances",
+    "background_stencil_id": 0,
+    "group_to_stencil_id": {
+      "BLDG_N100000": 1,
+      "BLDG_N200000": 2
+    }
+  }
+}

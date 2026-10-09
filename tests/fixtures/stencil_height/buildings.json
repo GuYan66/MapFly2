@@ -1,0 +1,16 @@
+{
+  "buildings": [
+    {
+      "label": "BLDG_N100000",
+      "center_m": [1.5, 1.5, 50.0],
+      "extent_m": [1.0, 1.0, 20.0],
+      "rotation_yaw": 0.0
+    },
+    {
+      "label": "BLDG_N200000",
+      "center_m": [3.5, 1.5, 20.0],
+      "extent_m": [1.0, 1.0, 10.0],
+      "rotation_yaw": 0.0
+    }
+  ]
+}

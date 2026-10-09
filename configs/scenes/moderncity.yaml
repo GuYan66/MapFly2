@@ -1,0 +1,6 @@
+scene_id: moderncity
+bundle_id: 20260829T081353Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/ModernCityBundle/LinuxNoEditor/ModernCityBundle.sh

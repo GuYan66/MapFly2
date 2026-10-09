@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+dist/
+build/
+
+# Local machine paths (keep *.example.yaml)
+**/local.yaml
+
+# Runtime artifacts (root only: UE packages, bundles, datasets, eval runs)
+/data/
+/assets/
+/SceneBundles/
+**/runs/
+**/work/
+**/captures/
+**/refs/
+
+# Dev-only behaviour pins; keep on disk, do not publish.
+dev/golden/
+# Packaged dumps of the same trees (the directory rule does not match archives).
+SceneBundles*.tar.gz
+**/SceneBundles*.tar.gz
+debug/
+*.npz
+*.tar.gz
+*.zip
+*.docx
+*.egg
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

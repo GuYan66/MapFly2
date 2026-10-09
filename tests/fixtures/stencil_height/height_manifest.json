@@ -1,0 +1,22 @@
+{
+  "version": 4,
+  "kind": "building_height",
+  "mosaic_min_corner_ue_cm": [
+    0.0,
+    0.0
+  ],
+  "mosaic_max_corner_ue_cm": [
+    600.0,
+    600.0
+  ],
+  "axes": {
+    "image_row0_world": "ue_x_max",
+    "image_col0_world": "ue_y_min"
+  },
+  "stencil_encoding": {
+    "mode": "custom_depth_rg16",
+    "camera_z_ue_cm": 60000.0,
+    "channels": "R=high8,G=low8,B=unused",
+    "value": "h = (R*255 + G) / 65025; top_z_ue_cm = h * camera_z_ue_cm"
+  }
+}

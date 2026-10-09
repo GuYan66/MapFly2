@@ -1,0 +1,59 @@
+# The single evaluation protocol for all scenes; do not copy it per scene. The scene comes
+# from the dataset's run.json, selected with --eval-scene or --dataset-root.
+#
+# base_config supplies the observation contract (camera, FPV resolution, FOV) the model was
+# trained against; its `scene` is overridden by run.json.
+base_config: configs/datagen.yaml
+
+dataset:
+  # A scene directory, used when neither --dataset-root nor --eval-scene is given.
+  root: data/mapfly13k/smallcity
+  count: 10
+  seed: 0
+
+runtime:
+  launch: owned
+  visible: false
+  execution: computer_vision
+
+observation:
+  map_type: osm
+  pixel_size: 224
+  padding_m: 20.0
+  # current_goal | start_goal | route | current_route; see MarkerMode in mapfly/schema.py.
+  marker_mode: current_goal
+
+rollout:
+  success_radius_m: 10.0        # SR/OSR radius (3D, UE world frame)
+  max_decisions: 200
+  max_chunk_points: 64
+  max_chunk_length_m: 250.0
+  # Fly only the first N waypoints of each chunk, then re-infer; null flies the whole chunk.
+  # Stop detection still uses the full chunk, since a short prefix would look stationary.
+  replan_after_points: null
+  # The first decision at or above this stop probability ends the episode (policy_stop)
+  # without flying its chunk. A model's stop radius must be below success_radius_m.
+  stop_prob_threshold: 0.5
+  velocity_mps: 3.0
+  endpoint_tolerance_m: 0.5  # horizontal waypoint error
+  reset_horizontal_tolerance_m: 1.0
+  vertical_tolerance_m: 1.0
+  yaw_tolerance_deg: 5.0     # reset only; the path command does not steer yaw
+  poll_hz: 10.0
+  stuck_window_sec: 2.0
+  stuck_distance_m: 0.1
+  timeout_factor: 3.0
+  minimum_timeout_sec: 30.0
+  # Multirotor only: a chunk also counts as flown once path progress reaches its end within
+  # this radius of the last waypoint; at 3 m/s the vehicle often coasts 1-2 m past it.
+  overshoot_radius_m: 3.0
+  # After hover(), every sample over settle_window_sec must stay within stuck_distance_m
+  # before the next observation; settle_timeout_sec bounds that wait.
+  settle_window_sec: 0.5
+  settle_timeout_sec: 3.0
+
+output:
+  # Relative paths resolve from the process cwd (run from the repository root).
+  root: data/eval_runs
+  # Save every FPV and map frame (also --save-observations); tens of GB per full split.
+  save_observations: false

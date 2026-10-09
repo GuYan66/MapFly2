@@ -1,0 +1,38 @@
+schema_version: 1
+scene_id: industrialcity
+ue_level: /Game/IndustrialCity/Scenes/DemoScene
+
+# UE 4.27.2 project: IndustrialCity. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured flyable polygon.
+world:
+  bounds_ue_cm: [-20000.0, 20000.0, -20000.0, 20000.0]
+  player_start_ue_cm: [1410.0, -770.0, 192.0, 0.0]
+  default_flight_z_ue_cm: 730.0
+  flyable_polygon_ue_cm:
+    - [-11590.0, -11310.0]
+    - [11550.0, -11380.0]
+    - [11520.0, 11410.0]
+    - [-11480.0, 11510.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      # Complete prefab actors already contain their Roof component.
+      - '^Building_[A-E]_Var[AB](?:\d+|_\d+)?$'
+      # Eight manually assembled buildings expose their top surface as standalone Roof actors.
+      - '^Roof\d*$'
+    roof_only_actor_label_regex:
+      - '^Roof\d*$'
+  environment:
+    component_rules:
+      # Road meshes combine roadway, curb and regular sidewalk material slots.
+      - {class: road, asset_path_regex: '^/Game/IndustrialCity/Models/(Road_(2L_Var[AB]|4L_VarB)|Intersection(_T)?_(2x2|4x2)_lane)\.'}

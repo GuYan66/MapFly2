@@ -1,0 +1,8 @@
+scene_id: laketown
+bundle_id: 20260905T092144Z
+
+# Night-authored scene: the ISO 100 physical camera underexposes FPV (mean pixel ~3). Set
+# here because evaluation reads this file; the dataset was captured with it off.
+runtime:
+  physical_camera_exposure: false
+  ue_package: assets/ue/LakeTown/Linux/LakeTown.sh

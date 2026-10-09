@@ -1,0 +1,6 @@
+scene_id: brushifyurban
+bundle_id: 20260829T082534Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/BrushifyUrban/LinuxNoEditor/BrushifyUrban.sh

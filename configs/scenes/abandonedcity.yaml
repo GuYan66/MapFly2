@@ -1,0 +1,6 @@
+scene_id: abandonedcity
+bundle_id: 20260828T182412Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/AbandonedCity/LinuxNoEditor/AbandonedCity.sh

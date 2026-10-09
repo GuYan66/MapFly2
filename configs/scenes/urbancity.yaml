@@ -1,0 +1,7 @@
+scene_id: urbancity
+bundle_id: 20260829T080521Z
+
+runtime:
+  # Microsoft (official) AirSim, not Cosys.
+  airsim_flavor: official
+  ue_package: assets/ue/UrbanCity/LinuxNoEditor/UrbanCity.sh

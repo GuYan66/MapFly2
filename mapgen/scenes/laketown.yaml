@@ -1,0 +1,53 @@
+schema_version: 1
+scene_id: laketown
+ue_level: /Game/LAKETOWN/MAPS/LAKETOWN
+
+# UE 5.5 project: LakeTown. Bounds cover the loaded Landscape and every city
+# building, padded to the 200 m capture grid.
+world:
+  bounds_ue_cm: [-280000.0, 100000.0, 660000.0, 1000000.0]
+  player_start_ue_cm: [-225676.87322022615, 736413.0486967014, -30000.0, 0.0]
+  default_flight_z_ue_cm: -28000.0
+  flyable_polygon_ue_cm:
+    - [-66080.0, 967900.0]
+    - [38850.0, 920360.0]
+    - [76820.0, 729350.0]
+    - [51500.0, 670290.0]
+    - [23370.0, 665220.0]
+    - [-91290.0, 667500.0]
+    - [-126890.0, 684240.0]
+    - [-225510.0, 659670.0]
+    - [-279270.0, 673200.0]
+    - [-276060.0, 796740.0]
+    - [-215190.0, 872930.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 80000.0
+  height_floor_ue_cm: -50000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+  satellite_exposure_bias: 10.0
+
+semantics:
+  style: osm_carto
+  building:
+    # Preserve the rendered mesh footprint, including courtyards and concave roofs.
+    auto_sparse_footprints: false
+    actor_label_regex:
+      - "^(?:LCB|LCH|LHB)_.+$"
+      - "^SM_(?:BUILDING|CHARGE_STATION|CONIC_TOWER|GARAGE|HOUSE_TYPE|LCB|PLANETORIUM|PYRAMID|RESIDENCES|SCHOOL|STADIUM|TEMPLE_TOWER|TOWER).*$"
+      - "^(?:HOSPITAL|SOCCER_STADIUM|wheellake)\\d*$"
+  environment:
+    component_rules:
+      - {class: water, actor_label_regex: "^SM_Shape_Plane(?:13|45)$"}
+      - {class: road, asset_path_regex: "^/Game/LAKETOWN/CITY/MESHES/FIELDS_ISLANDS_ROADS/SM_(?:ROAD[^.]*|ROUNDABOUT|GENROAD)\\."}
+      - {class: aeroway, actor_label_regex: "^AIRPORT2$"}
+      - {class: aeroway, asset_path_regex: "^/Game/LAKETOWN/CITY/MESHES/FIELDS_ISLANDS_ROADS/SM_AIRPORT_GROUND_2\\."}
+      - {class: park, asset_path_regex: "^/Game/LAKETOWN/CITY/MESHES/FIELDS_ISLANDS_ROADS/SM_(?:PARK|GOLF_\\d+|GREEN_AREA_1)\\."}
+      - {class: residential_land, asset_path_regex: "^/Game/LAKETOWN/CITY/MESHES/FIELDS_ISLANDS_ROADS/SM_(?:FIELD_\\d+|BIG_SITE(?:_\\d+)?|BIG_GROUND_PART|CHARGE_ST_GROUND)\\."}
+      - {class: pitch, actor_label_regex: "^BASKETBALL_FIELD\\d*$"}
+      # The low terrain is grass; roads, water and plots above it win by depth.
+      - {class: grass, actor_label_regex: "^Landscape$"}

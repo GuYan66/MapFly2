@@ -1,0 +1,6 @@
+scene_id: citydowntown
+bundle_id: 20260830T144856Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/CityDowntownPack/LinuxNoEditor/CityDowntownPack.sh

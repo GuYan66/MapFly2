@@ -1,0 +1,75 @@
+# Every MapFly-Agent training run of the paper, named <track>[_<map>|_no_fpv] (OSM unless
+# named), recorded only as what it changes relative to the head's baseline yaml
+# (<head>/starvla_<head>_uav_seen12.yaml), which is p1r0. variant_config.py applies a block,
+# names the run mapfly_agent_<oft|gr00t>_<variant>, and hands the yaml to train_starvla.py:
+#   - keys are dotted config paths; a value split by head name (qwenoft / qwengr00t) applies
+#     to that head only, so one block can carry both heads' CoT;
+#   - null deletes the key (p1r0_no_fpv drops CoT_prompt);
+#   - heads: restricts which heads can run the variant (default: both).
+# All variants share the baseline's episodes, slice, tau=0.5 weights and 80k steps; change
+# hyperparameters in the baseline only.
+
+p1r0: {}
+
+# ---- Tracks and map ablations: same episodes, only the map directory and CoT change. Each
+# has its own LeRobot prefix because the task sentence on disk depends on the map style and
+# the converter clears its output directory. Static maps keep include_state: true; without
+# the live marker the state is the only position cue.
+
+p0r0:
+  # Static OSM map, one frame per episode (--marker-mode start_goal): blue = start, red = goal.
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_startgoal_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: "Use both images. The top-down map is north-up, stays fixed, and never changes during the episode; the blue marker is where you started and the red marker is the goal. The map does not show where you are now. Your proprioceptive state is the pose relative to the episode start in the start-body frame, [dx, dy, dz, dyaw]; use it with this fixed map to work out your current position and heading. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+    qwengr00t: "Use both images. The top-down map is north-up, stays fixed, and never changes during the episode; the blue marker is where you started and the red marker is the goal. The map does not show where you are now. Use the first-person view together with this fixed north-up map to work out your current position and heading. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+
+p0r1:
+  # Static OSM map: start, full GT route (green) and goal. The line is the planned answer, so
+  # this variant is an upper bound for the others.
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_route_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: "Use both images. The top-down map is north-up, stays fixed, and never changes during the episode; the blue marker is where you started, the green line is the route to follow, and the red marker is the goal. The map does not show where you are now. Your proprioceptive state is the pose relative to the episode start in the start-body frame, [dx, dy, dz, dyaw]; use it with this fixed map to work out how far along the route you are and which way to turn next. Follow the route, do not fly past the goal, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+    qwengr00t: "Use both images. The top-down map is north-up, stays fixed, and never changes during the episode; the blue marker is where you started, the green line is the route to follow, and the red marker is the goal. The map does not show where you are now. Use the first-person view together with this fixed north-up map to work out how far along the route you are and which way to turn next. Follow the route, do not fly past the goal, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+
+p1r1:
+  # Live OSM map, one frame per step: current position, remaining GT route (green) and goal.
+  # The line shows only what is left, hence "remaining route" rather than route's wording.
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_current_route_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: "Use both images. The top-down map is north-up and stays fixed; it does not rotate with you. The blue marker is your current position, the green line is the remaining route to follow, and the red marker is the goal. Your proprioceptive state is the pose relative to the episode start in the start-body frame, [dx, dy, dz, dyaw]; use dyaw with this fixed map to infer which way you are currently facing. Follow the remaining route toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+    qwengr00t: "Use both images. The top-down map is north-up and stays fixed; it does not rotate with you. The blue marker is your current position, the green line is the remaining route to follow, and the red marker is the goal. The map does not show heading; use the first-person view with this fixed north-up map to infer which way you are currently facing. Follow the remaining route toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+
+p1r0_satellite:
+  # Main-line markers (current_goal) on the satellite image instead of OSM. Same task sentence;
+  # the CoT only names the base map.
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_satellite_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: "Use both images. The top-down map is a north-up satellite image and stays fixed; it does not rotate with you. The blue marker is your current position and the red marker is the goal. Your proprioceptive state is the pose relative to the episode start in the start-body frame, [dx, dy, dz, dyaw]; use dyaw with this fixed map to infer which way you are currently facing. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+    qwengr00t: "Use both images. The top-down map is a north-up satellite image and stays fixed; it does not rotate with you. The blue marker is your current position and the red marker is the goal. The map does not show heading; use the first-person view with this fixed north-up map to infer which way you are currently facing. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+
+p1r0_markers_only:
+  # Live markers on the plain OSM land colour (MapFly map_type=markers_only), no buildings,
+  # roads or water. The CoT, as trained, calls it a blank map.
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_markers_only_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: "Use both images. The top-down map is a north-up blank map that shows only the markers, with no roads or buildings, and stays fixed; it does not rotate with you. The blue marker is your current position and the red marker is the goal. Your proprioceptive state is the pose relative to the episode start in the start-body frame, [dx, dy, dz, dyaw]; use dyaw with this fixed map to infer which way you are currently facing. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+    qwengr00t: "Use both images. The top-down map is a north-up blank map that shows only the markers, with no roads or buildings, and stays fixed; it does not rotate with you. The blue marker is your current position and the red marker is the goal. The map does not show heading; use the first-person view with this fixed north-up map to infer which way you are currently facing. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+
+p0r0_markers_only:
+  # Static markers-only: the p0r0 map on the plain background; the CoT adds one clause.
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_markers_only_startgoal_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: "Use both images. The top-down map is a north-up blank map that shows only the markers, with no roads or buildings; it stays fixed and never changes during the episode; the blue marker is where you started and the red marker is the goal. The map does not show where you are now. Your proprioceptive state is the pose relative to the episode start in the start-body frame, [dx, dy, dz, dyaw]; use it with this fixed map to work out your current position and heading. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+    qwengr00t: "Use both images. The top-down map is a north-up blank map that shows only the markers, with no roads or buildings; it stays fixed and never changes during the episode; the blue marker is where you started and the red marker is the goal. The map does not show where you are now. Use the first-person view together with this fixed north-up map to work out your current position and heading. Turn toward the goal, do not fly past it, and stop only when you are already next to it. Use the first-person view to keep the path ahead clear. {instruction}"
+
+# ---- Camera ablation (not in SEEN12_MAP_VARIANT_PREFIXES).
+
+p1r0_no_fpv:
+  # Camera ablation: map only, no FPV. The robot_type keeps only video.map_image; the tree
+  # uav/fulldata_maponly is derived from the main line with a task sentence that names no
+  # first-person view. No CoT: the main-line CoT is about matching FPV to the map, and
+  # rewriting it would change two things at once, so QWen3.py uses the task sentence as is.
+  heads: [qwenoft]
+  datasets.vla_data.data_mix: uav_mapfly_goalgeo_seen12_maponly_tau05
+  datasets.vla_data.CoT_prompt:
+    qwenoft: null

@@ -1,0 +1,61 @@
+schema_version: 1
+scene_id: realcitysf
+ue_level: /Game/RealCitySF/Maps/San_Francisco_sunny_01
+
+# UE 4.27.2 project: RealCitySF.
+# Capture bounds cover the measured city buildings, excluding the distant
+# Treasure Island vista mesh, and are padded to the 200 m tile grid.
+world:
+  bounds_ue_cm: [-40000.0, 60000.0, -40000.0, 80000.0]
+  player_start_ue_cm: [-7020.87548828125, 10772.2548828125, 602.4031982421875, 0.0]
+  default_flight_z_ue_cm: 3500.0
+  flyable_polygon_ue_cm:
+    - [37790.0, -26080.0]
+    - [41380.0, 46780.0]
+    - [49600.0, 47070.0]
+    - [50650.0, 65320.0]
+    - [6370.0, 66220.0]
+    - [6820.0, 50070.0]
+    - [-40000.0, 51110.0]
+    - [-38360.0, -24290.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+  satellite_exposure_bias: 22.0
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^Building_\\d+$"
+      - "^SM_[Bb]uilding_(?:\\d+|[A-Z]\\d*|GP_\\d+)$"
+      - "^B_LowPolyProceduralBuilding\\d*$"
+      - "^SM_lowpolybuilding_procMesh_\\d+$"
+      - "^SM_BldgLG_[A-Z](?:_?\\d+)?$"
+      - "^SM_BldgMD_[A-Z](?:_?\\d+)?$"
+      - "^SM_BldgSM_[A-Z](?:\\d+|_Building[A-Z]\\d*)$"
+      - "^SM_(?:ferrybuilding_01|Sales_ForceTower|SkyRise_\\d+|Ybldg_01|BRK_BldgLG_F|201_Folsom_St2?|Apartment_Sky_Rise2?|bldg04|bldg07_noUV_temp\\d*|salesforce_park_bldg_\\d+|greyhound_station_01|postoffice_pier_01_low)$"
+  environment:
+    component_rules:
+      - {class: water, asset_path_regex: "/SM_water_plane_\\d+\\."}
+      - {class: parking, asset_path_regex: "/SM_Parking_lot_busStop_grp_SM_parking(?:_road|lot_(?:sidewalk|island))_\\d+\\."}
+      - {class: road, asset_path_regex: "/SM_road_0?[12]\\."}
+      - {class: bridge, asset_path_regex: "/SM_baybridge_west_span_01_parts_SM_baybridge_span_\\d+\\."}
+      - {class: park, asset_path_regex: "/SM_Rincon_park_01\\."}
+      - {class: grass, asset_path_regex: "/SM_embarcadero_sidewalk_grp_SM_sidewalk_grass_gorepoint_01\\."}
+      - {class: residential_land, asset_path_regex: "/SM_blocks_sidewalk_grp_SM_MERGED_sidewalk_part_\\d+\\."}
+      - {class: residential_land, asset_path_regex: "/SM_sf_sidewalk_foundation_floors_grp_01_[^/]+\\."}
+      - {class: residential_land, asset_path_regex: "/SM_embarcadero_sidewalk_grp_(?:SM_embarcadero_sidewalk_01|SM_sidewalk_[ab]|sidewalk_[cd]_embarcadero_\\d+|sm_crosswalk_concrete\\d?)\\."}
+      - {class: bare_ground, actor_label_regex: "^SM_pier_reclaimed_land_01$"}
+      - {class: bridge, actor_label_regex: "^SM_pier_bridge_02$"}
+      - {class: platform, actor_label_regex: "^SM_pier14_section_a$"}
+      - {class: platform, actor_label_regex: "^SM_pier_middle_01$"}
+      - {class: platform, actor_label_regex: "^SM_pier_dock_a\\d*$"}
+      - {class: platform, actor_label_regex: "^SM_pier_gangway_\\d+$"}
+      # - {class: vegetation, actor_label_regex: "^(?:BP_SF_tree_.+|BP_SF_palmtree_sand_\\d+|SF_Broadleaf_.+|SF_Palm(?:_tall)?_\\d+|Alder_Desktop_Forest_modded_\\d+|BP_planter_with_sapling_\\d+)$"}
+      - {class: land_occluder, asset_path_regex: "/SM_boundary_base_01\\."}

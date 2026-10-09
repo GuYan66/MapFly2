@@ -1,0 +1,4 @@
+# Machine-specific paths; copy to configs/local.yaml. Relative paths resolve against
+# this file's directory (configs/).
+scene_bundles_root: ../SceneBundles  # <scene>/<bundle_id>/bundle.json
+dataset_root: ../data/mapfly13k      # MapFly-13K as unpacked: <scene>/<scene>_NNNNNN/

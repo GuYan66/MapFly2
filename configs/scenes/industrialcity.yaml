@@ -1,0 +1,6 @@
+scene_id: industrialcity
+bundle_id: 20260829T081613Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/IndustrialCity/LinuxNoEditor/IndustrialCity.sh

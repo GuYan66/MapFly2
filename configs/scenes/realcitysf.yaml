@@ -1,0 +1,6 @@
+scene_id: realcitysf
+bundle_id: 20260830T164925Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/RealCitySF/LinuxNoEditor/RealCitySF.sh

@@ -1,0 +1,5 @@
+scene_id: smallcity
+bundle_id: 20260828T174500Z
+
+runtime:
+  ue_package: assets/ue/smallcity/CitySample.sh

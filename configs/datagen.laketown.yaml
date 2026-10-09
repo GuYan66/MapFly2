@@ -1,0 +1,7 @@
+# laketown: the flight layer is at -280 m, so the default min_building_height_m
+# (= flight z) is negative and the sampler rejects it.
+extends: datagen.yaml
+scene: laketown
+
+sampler:
+  min_building_height_m: 1.0

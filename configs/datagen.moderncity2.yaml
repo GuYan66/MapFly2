@@ -1,0 +1,7 @@
+# moderncity2: trajectories of 150-500 m.
+extends: datagen.yaml
+scene: moderncity2
+
+sampler:
+  min_path_length_m: 150.0
+  max_path_length_m: 500.0

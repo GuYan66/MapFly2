@@ -1,0 +1,6 @@
+scene_id: nordicharbour
+bundle_id: 20260829T081039Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/NordicHarbour/LinuxNoEditor/NordicHarbour.sh

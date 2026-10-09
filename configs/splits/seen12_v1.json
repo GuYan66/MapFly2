@@ -1,0 +1,22 @@
+{
+  "description": "MapFly-13K. 12 seen scenes train on the first N episodes of each scene in sorted order (9,660 episodes); the rest of each seen scene is Test Seen (2,140). 3 unseen scenes are Test Unseen in full (1,500). laketown is the only night scene; report it on its own as well.",
+  "train": {
+    "bigcity": 2500,
+    "nyc1950": 1250,
+    "smallcity": 1250,
+    "brushifyurban": 800,
+    "moderncity": 800,
+    "realcitysf": 800,
+    "citydowntown": 500,
+    "abandonedcity": 400,
+    "battlefielddesert": 400,
+    "nordicharbour": 400,
+    "urbancity": 400,
+    "industrialarea": 160
+  },
+  "unseen": [
+    "industrialcity",
+    "laketown",
+    "moderncity2"
+  ]
+}

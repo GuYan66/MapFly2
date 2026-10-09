@@ -1,0 +1,6 @@
+# bigcity: CitySample texture streaming is slow, so discard more warm-up frames.
+extends: datagen.yaml
+scene: bigcity
+
+airsim:
+  warmup_frames: 8

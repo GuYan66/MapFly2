@@ -1,0 +1,6 @@
+scene_id: nyc1950
+bundle_id: 20260830T205651Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/NYC1950/LinuxNoEditor/NYC1950.sh

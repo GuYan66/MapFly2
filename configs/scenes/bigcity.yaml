@@ -1,0 +1,5 @@
+scene_id: bigcity
+bundle_id: 20260830T203019Z
+
+runtime:
+  ue_package: assets/ue/bigcity/CitySample.sh

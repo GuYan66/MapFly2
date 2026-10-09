@@ -1,0 +1,83 @@
+# Production recipe for scripts/run_datagen.py, run_fly_validate.py, run_capture.py and
+# render_episode_maps.py; each scene is written to <data_root>/<scene>/.
+scene: smallcity
+
+airsim:
+  server_ip: "127.0.0.1"
+  api_port: 41451
+  timeout_sec: 360.0            # covers a UE package cold start (~260 s)
+  gpus: [0]
+  vehicle: "Drone_1"
+  camera: "front_0"
+  rgb_resolution: [448, 448]
+  camera_fov_deg: 90.0
+  settle_sec: 0.1
+  warmup_frames: 1            # RGB reads dropped at each episode's first pose (texture streaming)
+
+bev:
+  resolution_m: 1.0
+  # Hard standoff for the airframe and tracking error (0.67–0.82 m at 3 m/s); not rescaled
+  # per scene. 3.0 m would close the 6 m streets of the cramped scenes.
+  inflation_m: 2.0
+  height_margin_m: 5.0
+
+sampler:
+  mode: building_detour
+  # Radial offset outwards from the selected footprint; scene_scaling narrows it per scene.
+  d_min_m: 50.0
+  d_max_m: 150.0
+  min_clearance_m: 2.0
+  # min_building_height_m defaults to the scene's flight height.
+  endpoint_clearance_m: 12.0
+  # Planned-path length range. Past ~500 m a 15 m street spans too few pixels of the 224 px
+  # map; 50 m is still 25 decisions and fits the smallest scene's 50–120 m detours.
+  min_path_length_m: 50.0
+  max_path_length_m: 500.0
+  max_retries: 400
+  random_yaw: false
+  require_blocked_los: true
+  min_detour_ratio: 1.15        # smallcity; scene_scaling lowers it in cramped scenes
+
+planner:
+  w_clear: 0.5
+  d_safe_m: 8.0
+
+smoother:
+  ctrl_spacing_m: 6.0
+  opt_iters: 375
+  w_smooth: 5.0
+  w_esdf: 2.0
+  w_dev: 0.03
+  d_safe_m: 8.0
+  min_clearance_m: 5.5
+  max_clearance_drop_m: 1.5
+  r_min_m: 10.0
+  max_climb_deg: 15.0
+
+# Thresholds above are tuned on smallcity (free-space clearance p40 = 8.0 m) and rescaled
+# per scene (mapfly/plan/thresholds.py); datagen.<scene>.yaml is for what scaling misses.
+scene_scaling:
+  enabled: true
+  clearance_percentile: 40
+  reference_clearance_m: 8.0
+  min_clearance_scale: 0.35
+  max_offset_diagonal_fraction: 0.20
+  min_offset_ratio: 0.33
+
+labels:
+  dense_ds_m: 1.0
+  decision_ds_m: 2.0
+
+validation:
+  fly_velocity_mps: 3.0
+
+mapping:
+  map_type: osm
+  # current_goal | start_goal | route | current_route; see MarkerMode in mapfly/schema.py.
+  marker_mode: current_goal
+  pixel_size: 224
+  padding_m: 20.0
+
+output:
+  data_root: data/generated
+  seed: 0

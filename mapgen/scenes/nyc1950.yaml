@@ -1,0 +1,49 @@
+schema_version: 1
+scene_id: nyc1950
+ue_level: /Game/NYC1950/Levels/NYC_Level_WC
+
+# UE 4.27.2 project: NYC1950.
+# Bounds cover the loaded road and pavement network, rounded to the 200 m tile grid.
+world:
+  bounds_ue_cm: [-60000.0, 100000.0, -80000.0, 40000.0]
+  player_start_ue_cm: [65272.296875, -61325.30859375, 152.0, 0.0]
+  default_flight_z_ue_cm: 2500.0
+  flyable_polygon_ue_cm:
+    - [-57940.0, -72800.0]
+    - [-5740.0, -72370.0]
+    - [-5570.0, -15440.0]
+    - [46100.0, -16220.0]
+    - [47030.0, -64620.0]
+    - [100000.0, -63850.0]
+    - [100000.0, 38550.0]
+    - [47810.0, 39170.0]
+    - [46720.0, -8300.0]
+    - [-11930.0, -9390.0]
+    - [-12580.0, 800.0]
+    - [-58670.0, 60.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^SM_NYCB_\\d+$"
+  environment:
+    component_rules:
+      - {class: water, actor_label_regex: "^Sea$"}
+      - {class: park, actor_label_regex: "^Landscape1$"}
+      - {class: bridge, actor_label_regex: "^SM_Bridge_\\d+$"}
+      - {class: road, actor_label_regex: "^Road_\\d+m_Box\\d*$"}
+      - {class: road, actor_label_regex: "^Road_12m_L\\d*$"}
+      - {class: road, actor_label_regex: "^Road_12m_T\\d*$"}
+      - {class: road, actor_label_regex: "^Road_12m_24m_[LT]\\d*$"}
+      - {class: road, actor_label_regex: "^Road_12m_enter\\d*$"}
+      - {class: road, actor_label_regex: "^Road_24m_enter\\d*$"}
+      - {class: residential_land, actor_label_regex: "^SM_Pavement_.+$"}

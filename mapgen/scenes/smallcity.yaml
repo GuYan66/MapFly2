@@ -1,0 +1,45 @@
+schema_version: 1
+scene_id: smallcity
+ue_level: /Game/Map/Small_City_LVL
+
+world:
+  bounds_ue_cm: [-100000.0, 100000.0, -80000.0, 100000.0]
+  player_start_ue_cm: [-29898.724609375, -100.74424743652344, 168.90370178222656, 45.70806121826171]
+  default_flight_z_ue_cm: 2800.0
+  flyable_polygon_ue_cm:
+    - [-38213.902441, -61687.146442]
+    - [38650.0, -61890.0]
+    - [52430.0, -49420.0]
+    - [78100.0, 15500.0]
+    - [65370.0, 41860.0]
+    - [52210.0, 54900.0]
+    - [26110.0, 68180.0]
+    - [-200.0, 68000.0]
+    - [-92006.66702, 16378.738886]
+    - [-51910.0, -49400.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - ^BLDG_N\d+$
+      - ^BLDG_N\d+_[A-Z0-9]+$
+      - ^BLDG_ROOFGEO_N\d+$
+      - ^BPP_Bldg_Hero_SFB_B1$
+      - ^BPP_Bldg_Hero_Tower_CHC_A01$
+  environment:
+    component_rules:
+      - {class: water, actor_label_regex: "^water_plane$"}
+      - {class: land_occluder, asset_path_regex: "^/Game/City/Small_City/GEOMETRY/SM_failsafe_ground_collision_"}
+      - {class: road_motorway, actor_label_regex: "^FREEWAY_DECK_VISIBLE_N\\d+$"}
+      - {class: road, asset_path_regex: "^/Game/Road/Kit_City_Road/"}
+      - {class: parking, asset_path_regex: "/SM_Sidewalk_Square_Parking\\."}
+      - {class: residential_land, asset_path_regex: "^/Game/Road/Kit_Sidewalk_A/", exclude_asset_path_regex: "Collision|SM_Parking_lines|divider"}

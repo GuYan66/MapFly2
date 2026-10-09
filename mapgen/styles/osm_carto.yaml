@@ -1,0 +1,192 @@
+# Shared OSM Standard (openstreetmap-carto) catalog at z16-17.
+# Scenes pick classes by name; unused entries stay out of the job.
+schema_version: 1
+style_id: osm_carto
+
+building:
+  background:
+    id: 0
+    color_rgba: [242, 239, 233, 255]  # @land-color #f2efe9
+  building:
+    id: 1
+    color_rgba: [217, 208, 201, 255]  # @building-fill #d9d0c9
+    cartography: {casing_rgba: [185, 169, 156, 255], casing_width_px: 0.75}  # @building-line
+  building_major:
+    id: 2
+    color_rgba: [196, 182, 171, 255]  # @building-major-fill
+    cartography: {casing_rgba: [164, 143, 126, 255], casing_width_px: 0.75}  # @building-major-line
+
+environment:
+  background:
+    id: 0
+    color_rgba: [0, 0, 0, 0]
+  road:
+    id: 1
+    color_rgba: [255, 255, 255, 255]  # @residential-fill
+    cartography: {casing_rgba: [187, 187, 187, 255], casing_width_px: 0.8}  # #bbb
+  road_motorway:
+    id: 2
+    color_rgba: [232, 146, 162, 255]  # @motorway-fill #e892a2
+    cartography: {casing_rgba: [220, 42, 103, 255], casing_width_px: 1.0}  # #dc2a67
+  sidewalk:
+    id: 3
+    color_rgba: [221, 221, 232, 255]  # @pedestrian-fill #dddde8
+    cartography: {casing_rgba: [153, 153, 153, 255], casing_width_px: 0.8}  # #999
+  pedestrian:
+    id: 3
+    color_rgba: [221, 221, 232, 255]
+    cartography: {casing_rgba: [153, 153, 153, 255], casing_width_px: 0.8}
+  parking:
+    id: 4
+    color_rgba: [238, 238, 238, 255]  # @parking #eeeeee
+    cartography: {casing_rgba: [136, 136, 136, 255], casing_width_px: 0.3}  # @parking-outline
+  water:
+    id: 5
+    color_rgba: [170, 211, 223, 255]  # @water-color #aad3df
+  vegetation:
+    id: 6
+    color_rgba: [173, 209, 158, 255]  # @forest #add19e
+  forest:
+    id: 6
+    color_rgba: [173, 209, 158, 255]
+  land_occluder:
+    id: 7
+    color_rgba: [0, 0, 0, 0]
+    capture: {force_visible: true}
+  road_primary:
+    id: 8
+    color_rgba: [252, 214, 164, 255]  # @primary-fill #fcd6a4
+    cartography: {casing_rgba: [160, 107, 0, 255], casing_width_px: 1.0}  # #a06b00
+  road_trunk:
+    id: 9
+    color_rgba: [249, 178, 156, 255]  # @trunk-fill #f9b29c
+    cartography: {casing_rgba: [200, 78, 47, 255], casing_width_px: 1.0}  # #c84e2f
+  road_secondary:
+    id: 10
+    color_rgba: [247, 250, 191, 255]  # @secondary-fill #f7fabf
+    cartography: {casing_rgba: [112, 125, 5, 255], casing_width_px: 1.0}  # #707d05
+  road_tertiary:
+    id: 11
+    color_rgba: [255, 255, 255, 255]  # @tertiary-fill
+    cartography: {casing_rgba: [143, 143, 143, 255], casing_width_px: 0.8}  # #8f8f8f
+  living_street:
+    id: 12
+    color_rgba: [237, 237, 237, 255]  # @living-street-fill #ededed
+    cartography: {casing_rgba: [187, 187, 187, 255], casing_width_px: 0.8}
+  service:
+    id: 13
+    color_rgba: [255, 255, 255, 255]  # @service-fill
+    cartography: {casing_rgba: [187, 187, 187, 255], casing_width_px: 0.8}
+  footway:
+    id: 14
+    color_rgba: [250, 128, 114, 255]  # @footway-fill salmon
+  grass:
+    id: 15
+    color_rgba: [205, 235, 176, 255]  # @grass #cdebb0
+  park:
+    id: 16
+    color_rgba: [200, 250, 204, 255]  # @park #c8facc
+  farmland:
+    id: 17
+    color_rgba: [238, 240, 213, 255]  # @farmland #eef0d5
+    cartography: {casing_rgba: [199, 201, 174, 255], casing_width_px: 0.5}  # @farmland-line
+  sand:
+    id: 18
+    color_rgba: [245, 233, 198, 255]  # @sand #f5e9c6
+  beach:
+    id: 19
+    color_rgba: [255, 241, 186, 255]  # @beach #fff1ba
+  pitch:
+    id: 20
+    color_rgba: [136, 224, 190, 255]  # @pitch #88e0be
+  cemetery:
+    id: 21
+    color_rgba: [170, 203, 175, 255]  # @cemetery #aacbaf
+  residential_land:
+    id: 22
+    color_rgba: [224, 223, 223, 255]  # @residential #e0dfdf
+    cartography: {casing_rgba: [185, 185, 185, 255], casing_width_px: 0.5}  # @residential-line
+  commercial:
+    id: 23
+    color_rgba: [242, 218, 217, 255]  # @commercial #f2dad9
+    cartography: {casing_rgba: [209, 178, 176, 255], casing_width_px: 0.5}
+  retail:
+    id: 24
+    color_rgba: [255, 214, 209, 255]  # @retail #ffd6d1
+    cartography: {casing_rgba: [217, 156, 149, 255], casing_width_px: 0.5}
+  industrial:
+    id: 25
+    color_rgba: [235, 219, 232, 255]  # @industrial #ebdbe8
+    cartography: {casing_rgba: [198, 179, 195, 255], casing_width_px: 0.5}
+  railway:
+    id: 26
+    color_rgba: [235, 219, 232, 255]  # @railway = @industrial
+    cartography: {casing_rgba: [198, 179, 195, 255], casing_width_px: 0.5}
+  bridge:
+    id: 27
+    color_rgba: [184, 184, 184, 255]  # #bridge #B8B8B8
+  scrub:
+    id: 28
+    color_rgba: [200, 215, 171, 255]  # @scrub #c8d7ab
+  orchard:
+    id: 29
+    color_rgba: [174, 223, 163, 255]  # @orchard #aedfa3
+  allotments:
+    id: 30
+    color_rgba: [201, 225, 191, 255]  # @allotments #c9e1bf
+  construction:
+    id: 31
+    color_rgba: [199, 199, 180, 255]  # @construction #c7c7b4
+  bare_ground:
+    id: 32
+    color_rgba: [238, 229, 220, 255]  # @bare_ground #eee5dc
+  aeroway:
+    id: 33
+    color_rgba: [187, 187, 204, 255]  # @aeroway-fill #bbc  runways and taxiways
+  track:
+    id: 34
+    color_rgba: [153, 102, 0, 255]  # @track-fill #996600  unpaved track
+  cycleway:
+    id: 35
+    color_rgba: [0, 0, 255, 255]  # @cycleway-fill blue
+  steps:
+    id: 36
+    color_rgba: [250, 128, 114, 255]  # @steps-fill salmon
+  platform:
+    id: 37
+    color_rgba: [187, 187, 187, 255]  # @platform-fill #bbbbbb
+  raceway:
+    id: 38
+    color_rgba: [255, 192, 203, 255]  # @raceway-fill #ffc0cb
+  societal_amenities:
+    id: 39
+    color_rgba: [255, 255, 229, 255]  # @societal_amenities #ffffe5  school / hospital grounds
+  farmyard:
+    id: 40
+    color_rgba: [245, 220, 186, 255]  # @farmyard #f5dcba
+    cartography: {casing_rgba: [209, 180, 140, 255], casing_width_px: 0.5}  # @farmyard-line
+  garages:
+    id: 41
+    color_rgba: [223, 221, 206, 255]  # @garages #dfddce
+  apron:
+    id: 42
+    color_rgba: [218, 218, 224, 255]  # @apron #dadae0  aircraft parking
+  rest_area:
+    id: 43
+    color_rgba: [239, 200, 200, 255]  # @rest_area #efc8c8  highway rest area
+  campsite:
+    id: 44
+    color_rgba: [222, 246, 192, 255]  # @campsite #def6c0
+  glacier:
+    id: 45
+    color_rgba: [221, 236, 236, 255]  # @glacier #ddecec
+    cartography: {casing_rgba: [153, 204, 255, 255], casing_width_px: 1.0}  # @glacier-line #9cf
+  heath:
+    id: 46
+    color_rgba: [214, 217, 159, 255]  # @heath #d6d99f
+  quarry:
+    id: 47
+    color_rgba: [197, 195, 195, 255]  # @quarry #c5c3c3
+  wetland:
+    id: 48
+    color_rgba: [173, 209, 158, 255]  # wetland ~ @forest #add19e

@@ -1,0 +1,44 @@
+schema_version: 1
+scene_id: citydowntown
+ue_level: /Game/CityDowntown/Scenes/Downtown_Day
+
+# UE 4.27.2 project: CityDowntownPack. Downtown_Day (CityDownPark) map.
+# Capture bounds, flyable polygon and PlayerStart measured in the editor.
+world:
+  bounds_ue_cm: [-20000.0, 40000.0, -20000.0, 40000.0]
+  player_start_ue_cm: [2260.0, 8660.0, 82.0, 0.0]
+  default_flight_z_ue_cm: 3550.0
+  flyable_polygon_ue_cm:
+    - [-20400.0, 33080.0]
+    - [-21380.0, -15530.0]
+    - [37060.0, -15850.0]
+    - [37010.0, 33130.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      # BuildingN actors in the Buildings folder have many child objects; occupancy and
+      # OSM use only the roof footprint.
+      - "^Building\\d+_Roof$"
+      # Building2-6 / SM_Building4-6 are separate whole buildings, not parents of the
+      # roofs above.
+      - "^Building[2-6]$"
+      - "^SM_Building[4-6]$"
+      - "^B_LowPolyBuilding\\d+$"
+      - "^Cube4$"
+      - "^ProcMesh\\d*$"
+    roof_only_actor_label_regex:
+      - "^Building\\d+_Roof$"
+  environment:
+    component_rules:
+      - {class: road, actor_label_regex: "^B_Road\\d+$"}
+      - {class: sidewalk, actor_label_regex: "^B_WalkSide\\d+$"}

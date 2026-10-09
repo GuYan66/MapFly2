@@ -1,0 +1,41 @@
+schema_version: 1
+scene_id: urbancity
+ue_level: /Game/UrbanCity/Maps/Demo
+
+# UE 4.27.2 project: UrbanCity. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured semantic geometry.
+world:
+  bounds_ue_cm: [-20000.0, 40000.0, -20000.0, 20000.0]
+  player_start_ue_cm: [1620.0, 1560.0, 92.0, 0.0]
+  default_flight_z_ue_cm: 2000.0
+  flyable_polygon_ue_cm:
+    - [-15040.0, 1570.0]
+    - [-15220.0, -3250.0]
+    - [-5280.0, -20000.0]
+    - [16080.0, -20000.0]
+    - [22080.0, -12640.0]
+    - [8720.0, 1630.0]
+    - [8200.0, 15230.0]
+    - [4160.0, 20000.0]
+    - [240.0, 20000.0]
+    - [-8320.0, 18610.0]
+    - [-8080.0, 4290.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+  satellite_exposure_bias: 22.0
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^building_\\d+_\\d+$"
+  environment:
+    component_rules:
+      - {class: road, actor_label_regex: "^(?:Intersection|road_[A-D])$"}
+      - {class: residential_land, actor_label_regex: "^lot[A-E]_ground$"}

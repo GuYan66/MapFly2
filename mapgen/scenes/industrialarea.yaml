@@ -1,0 +1,82 @@
+schema_version: 1
+scene_id: industrialarea
+ue_level: /Game/IndustrialArea/Map/IndustrialArea
+
+# UE 4.27.2 project: IndustrialAreaEnv. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured factory yard.
+world:
+  bounds_ue_cm: [-20000.0, 20000.0, 0.0, 20000.0]
+  player_start_ue_cm: [-1475.2913818359375, 11302.9189453125, 848.403076171875, 0.0]
+  default_flight_z_ue_cm: 430.0
+  flyable_polygon_ue_cm:
+    - [-13040.0, 4740.0]
+    - [6030.0, 4790.0]
+    - [5990.0, 17940.0]
+    - [-13000.0, 17940.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    adjacency_margin_ue_cm: 200.0
+    auto_sparse_footprints: false
+    actor_label_regex:
+      - "^SM_Build_(1|2|3|6|7|8|9|10|12|13|17)$"
+      - "^SM_Colomn_(2[4-9]|[3-4]\\d|5[0-4]|69|[7-9]\\d|10\\d|11[0-4]|12[7-9]|1[3-6]\\d|170)$"
+      - "^SM_Wall_(3[3-9]|4\\d|5[0-8]|13[5-9]|14\\d|15[0-5])$"
+      - "^SM_Wall_(7[5-9]|8[0-2]|93|13[2-4]|15[6-9]|16[0-3])$"
+      - "^SM_Wall_(12[2-9]|13[01]|16[45])$"
+      - "^SM_Ceiling_1$"
+      - "^SM_Building_1$"
+      - "^SM_Stair_5$"
+      - "^SM_Stairs_10$"
+      - "^SM_Tank_(1|4|5)$"
+      - "^SM_Tank_Cover_[5-8]$"
+      - "^SM_Thermometer_[1-5]$"
+    # SM_Ceiling_1 is the roof of a hollow building.
+    roof_only_actor_label_regex:
+      - "^SM_Ceiling_1$"
+      - "^SM_Wall_(12[2-9]|13[01]|16[45])$"
+    # Column-built shells and the tank/stair assembly are filled to their bounds; wall
+    # groups keep their captured shape.
+    instance_groups:
+      - name: column_building_69_82
+        actor_label_regex: ["^SM_Colomn_(69|7\\d|8[0-2])$"]
+        footprint: bounds
+      - name: column_building_127_170
+        actor_label_regex: ["^SM_Colomn_(12[7-9]|1[3-6]\\d|170)$"]
+        footprint: bounds
+      - name: column_building_24_54
+        actor_label_regex: ["^SM_Colomn_(2[4-9]|[3-4]\\d|5[0-4])$"]
+        footprint: bounds
+      - name: column_building_83_114
+        actor_label_regex: ["^SM_Colomn_(8[3-9]|9\\d|10\\d|11[0-4])$"]
+        footprint: bounds
+      - name: wall_building_135_155
+        actor_label_regex: ["^SM_Wall_(13[5-9]|14\\d|15[0-5])$"]
+      - name: wall_building_33_58
+        actor_label_regex: ["^SM_Wall_(3[3-9]|4\\d|5[0-8])$"]
+      - name: wall_building_75_163
+        actor_label_regex: ["^SM_Wall_(7[5-9]|8[0-2]|93|13[2-4]|15[6-9]|16[0-3])$"]
+      - name: roof_building_122_165
+        actor_label_regex: ["^SM_Wall_(12[2-9]|13[01]|16[45])$"]
+      - name: assembled_tank_building
+        actor_label_regex:
+          - "^SM_Stair_5$"
+          - "^SM_Stairs_10$"
+          - "^SM_Tank_(1|4|5)$"
+          - "^SM_Tank_Cover_[5-8]$"
+          - "^SM_Thermometer_[1-5]$"
+        footprint: bounds
+  environment:
+    max_fill_hole_area_px: 16
+    component_rules:
+      - {class: road, actor_label_regex: "^SM_Road_\\d+$"}
+      - {class: industrial, actor_label_regex: "^SM_Floor_\\d+$"}

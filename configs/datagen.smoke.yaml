@@ -1,0 +1,7 @@
+# Smoke / small batches of the production recipe, written to data/smoke/<scene>/.
+# Scenes with their own datagen.<scene>.yaml extend the production recipe instead
+# (`extends` resolves a single hop only); pass --data-root data/smoke for those.
+extends: datagen.yaml
+
+output:
+  data_root: data/smoke

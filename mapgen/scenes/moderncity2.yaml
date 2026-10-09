@@ -1,0 +1,57 @@
+schema_version: 1
+scene_id: moderncity2
+ue_level: /Game/City/Scene/Scene
+
+# UE 5.5 project: ModernCity2. Bounds cover the ten detailed city blocks and
+# the contiguous Vista city, padded to the 200 m capture grid.
+world:
+  bounds_ue_cm: [-100000.0, 60000.0, -80000.0, 120000.0]
+  player_start_ue_cm: [-125.092881868126, 151.06775732821478, 107.3892388586234, 129.99999899297305]
+  default_flight_z_ue_cm: 3200.0
+  flyable_polygon_ue_cm:
+    - [-64280.0, 15510.0]
+    - [-1470.0, -50770.0]
+    - [38300.0, -39720.0]
+    - [42240.0, 52590.0]
+    - [-7150.0, 80050.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  height_floor_ue_cm: -5000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+  satellite_exposure_bias: 0.0
+
+semantics:
+  style: osm_carto
+  building:
+    # Render shell and roof geometry; never infer a footprint from actor bounds.
+    auto_sparse_footprints: false
+    actor_label_regex:
+      - "^SM_MERGED_PBG_OptiMesh_BP_C_\\d+$"
+      - "^SM_MERGED_StaticMeshActor_\\d+$"
+      - "^Full_Building_Large$"
+      - "^SM_MERGED_MM00251-Building_04_First_Window_NT_C_3375$"
+      - "^PBG_Procedural_Roof_BP\\d*$"
+      - "^Roof_1$"
+      - "^Combined$"
+      - "^Combined2$"
+      - "^Combined3$"
+      - "^Combined7$"
+    roof_only_actor_label_regex:
+      - "^PBG_Procedural_Roof_BP\\d*$"
+      - "^Roof_1$"
+      - "^Combined$"
+      - "^Combined2$"
+      - "^Combined3$"
+      - "^Combined7$"
+  environment:
+    component_rules:
+      - {class: road, actor_label_regex: "^B2-01-New$"}
+      - {class: road, actor_label_regex: "^BP_Intersection\\d*$"}
+      - {class: road, actor_label_regex: "^BP_SnappyRoad\\d*$"}
+      - {class: road, actor_label_regex: "^B.+Prep\\d*$"}
+      - {class: road, actor_label_regex: "^B.+Final\\d*$"}

@@ -1,0 +1,6 @@
+scene_id: battlefielddesert
+bundle_id: 20260829T121739Z
+
+runtime:
+  airsim_flavor: official
+  ue_package: assets/ue/BattlefieldDesert/LinuxNoEditor/BattlefieldDesert.sh

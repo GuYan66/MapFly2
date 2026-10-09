@@ -1,0 +1,43 @@
+schema_version: 1
+scene_id: nordicharbour
+ue_level: /Game/NordicHarbour/Maps/MainLevel_Demonstration
+
+# UE 4.27.2 project: NordicHarbour. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured flyable polygon.
+world:
+  bounds_ue_cm: [-20000.0, 20000.0, -20000.0, 20000.0]
+  player_start_ue_cm: [164.96786499023438, -7931.7353515625, 124.00884246826172, 179.999755859375]
+  default_flight_z_ue_cm: 1250.0
+  flyable_polygon_ue_cm:
+    - [-15230.0, -19150.0]
+    - [10200.0, -18960.0]
+    - [10780.0, 6200.0]
+    - [-14380.0, 5700.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^BP_CornerBuilding\\d*$"
+      - "^SM_Wall160_Blueprint\\d*$"
+      - "^SM_WallBase33_Blueprint\\d*$"
+      - "^SM_WallBase33_Blueprint1_Blueprint\\d*$"
+      - "^SM_Building\\d+_\\d+M\\d*$"
+      - "^SM_CornerBuilding\\d+$"
+  environment:
+    component_rules:
+      # These three SM_Road actors use ocean materials; the remaining SM_Road actors are roads.
+      - {class: water, actor_label_regex: "^SM_Road(30|170|182)$"}
+      - {class: bridge, asset_path_regex: "^/Game/NordicHarbour/Props/StreetModules/SM_Bridge\\."}
+      - class: sidewalk
+        asset_path_regex: "^/Game/NordicHarbour/Props/StreetModules/SM_(Pavement(SmallCorner)?|CornerPavement|Harbour(Corner)?|Dock[^.]*)\\."
+      - {class: road, actor_label_regex: "^SM_Road\\d*$"}
+      - {class: vegetation, asset_path_regex: "^/Game/NordicHarbour/Props/(Trees|Grass)/"}

@@ -1,0 +1,61 @@
+schema_version: 1
+scene_id: bigcity
+ue_level: /Game/Map/Big_City_LVL
+
+# Bounds pad the measured 4800 m x 5400 m of geometry north 200 m and east 600 m to
+# whole 1000 m World Partition regions.
+world:
+  bounds_ue_cm: [-260000.0, 240000.0, -420000.0, 180000.0]
+  player_start_ue_cm: [-72172.265625, -38796.578125, 599.999755859375, 13.090387344360352]
+  default_flight_z_ue_cm: 2800.0
+  flyable_polygon_ue_cm:
+    - [-252750.0, -231070.0]
+    - [-214960.0, -303280.0]
+    - [-63130.0, -417320.0]
+    - [28640.0, -415300.0]
+    - [175080.0, -291130.0]
+    - [214220.0, -100160.0]
+    - [210840.0, -59670.0]
+    - [148080.0, 100930.0]
+    - [-31420.0, 122530.0]
+    - [-224410.0, -67770.0]
+    - [-250050.0, -120410.0]
+
+capture:
+  strategy: world_partition_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+  region_size_ue_cm: 100000.0
+  load_margin_ue_cm: 25600.0
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - ^BLDG_N\d+$
+      - ^BLDG_N\d+_[A-Z0-9]+$
+      - ^BLDG_ROOFGEO_N\d+$
+      # Packed hero landmarks. Exclude inner Level01 / setDressing actors.
+      - '^BPP_Bldg_Hero_[A-Za-z0-9_]+(?<!_Level01)(?<!_setDressing)$'
+      # Standalone landmark/building blueprints outside the procedural BLDG_* set.
+      - '^BPP_SFB_CapitalBuilding_A1$'
+      - '^BPP_Warehouse_B$'
+    # Some buildings are matched only by their BLDG_ROOFGEO_* roof slab, 35-113 m up.
+    # Segments with suffixes such as _SFC/_CHJ are separate groups and unaffected.
+    roof_only_actor_label_regex:
+      - '^BLDG_ROOFGEO_N\d+$'
+  environment:
+    component_rules:
+      - {class: water, actor_label_regex: "^water_plane$"}
+      - {class: land_occluder, actor_label_regex: "^GroundCollisionCube$"}
+      - {class: land_occluder, asset_path_regex: "^/Game/City/Big_City/GEOMETRY/SM_FailSafe_Ground_Collision_"}
+      - {class: road_motorway, actor_label_regex: "^Mantle_FreewayDeckVisible_id_\\d+$"}
+      - {class: road_motorway, actor_label_regex: "^SM_FREEWAY_VIS_\\d+(?:_NoVC)?$"}
+      - {class: road, asset_path_regex: "^/Game/Road/Kit_City_Road/"}
+      - {class: parking, asset_path_regex: "/SM_Sidewalk_Square_Parking\\."}
+      - {class: sidewalk, asset_path_regex: "^/Game/Road/Kit_Sidewalk_A/", exclude_asset_path_regex: "Collision|SM_Parking_lines|divider"}
+      # Vegetation is deliberately left unlabelled.
+      # - {class: vegetation, asset_path_regex: "^/Game/Prop/Kit_Tree_[^/]+/Mesh/SM_Tree_"}

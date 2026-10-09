@@ -1,0 +1,67 @@
+schema_version: 1
+scene_id: abandonedcity
+ue_level: /Game/Abandoned_City/Maps/Abandoned_City_Exterior
+
+# UE 4.27.2 project: AbandonedCity. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured flyable polygon.
+world:
+  bounds_ue_cm: [-20000.0, 40000.0, -20000.0, 20000.0]
+  player_start_ue_cm: [9030.0, -4690.0, 542.0, 0.0]
+  default_flight_z_ue_cm: 2500.0
+  flyable_polygon_ue_cm:
+    - [-3020.0, -18080.0]
+    - [14200.0, -18500.0]
+    - [14320.0, -15730.0]
+    - [11580.0, -15130.0]
+    - [13500.0, -10680.0]
+    - [23270.0, -10890.0]
+    - [23930.0, -5550.0]
+    - [17740.0, -4760.0]
+    - [17860.0, -2570.0]
+    - [23180.0, -2270.0]
+    - [23000.0, 2960.0]
+    - [12540.0, 2690.0]
+    - [12670.0, 8680.0]
+    - [2510.0, 9250.0]
+    - [2400.0, 4960.0]
+    - [-540.0, 5180.0]
+    - [-1370.0, -14210.0]
+    - [-3220.0, -14380.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 40000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^SM_Building_\\d+$"
+      - "^SM_Slab_1_Slab_\\d+$"
+      - "^SM_Slab_Corner_\\d+_Slab_Corner_\\d+$"
+    instance_groups:
+      - name: SM_Slab_1_west
+        actor_label_regex: ["^SM_Slab_1_Slab_([1-9]|[1-9]\\d|10\\d)$"]
+        footprint: bounds
+      - name: SM_Slab_1_east
+        actor_label_regex: ["^SM_Slab_1_Slab_(1[1-9]\\d)$"]
+        footprint: bounds
+      - name: SM_Slab_Corner_1
+        actor_label_regex: ["^SM_Slab_Corner_1_Slab_Corner_\\d+$"]
+        footprint: bounds
+      - name: SM_Slab_Corner_2
+        actor_label_regex: ["^SM_Slab_Corner_2_Slab_Corner_\\d+$"]
+        footprint: bounds
+    # These buildings are assembled from many small pieces and only their top surface
+    # is matched, so occupancy must extend from the ground up to the roof.
+    roof_only_actor_label_regex:
+      - "^SM_Slab_1_Slab_\\d+$"
+      - "^SM_Slab_Corner_\\d+_Slab_Corner_\\d+$"
+  environment:
+    component_rules:
+      - {class: water, actor_label_regex: "^Plane$"}
+      - {class: road, actor_label_regex: "^SM_Road_\\d+$"}

@@ -1,0 +1,44 @@
+schema_version: 1
+scene_id: battlefielddesert
+ue_level: /Game/BattleField_Desert/Maps/Map_Desert
+
+# UE 4.27.2 project: BattlefieldDesert. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured flyable polygon.
+world:
+  bounds_ue_cm: [-40000.0, 0.0, 0.0, 40000.0]
+  player_start_ue_cm: [-10436.423828125, 23616.181640625, -6210.18310546875, 0.0]
+  default_flight_z_ue_cm: -5900.0
+  flyable_polygon_ue_cm:
+    - [-30340.0, 12490.0]
+    - [-17170.0, 9940.0]
+    - [-1450.0, 28000.0]
+    - [-7490.0, 35250.0]
+    - [-30310.0, 25540.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  # Every roof sits between -72 m and -38 m, below the default floor of z = 0.
+  height_floor_ue_cm: -10000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^SM_Building_2_Blueprint\\d*$"
+      - "^SM_BuildingBase_4_Blueprint\\d*$"
+      - "^SM_Shade_4_Blueprint\\d*$"
+      - "^SM_Building_\\d+$"
+      - "^SM_Porch_\\d+$"
+      - "^SM_Tent_\\d+$"
+      - "^SM_BuildingBase_\\d+$"
+      - "^SM_Roof_\\d+$"
+      - "^SM_Observation_Tower\\d*$"
+  environment:
+    component_rules:
+      - {class: road, asset_path_regex: "^/Game/BattleField_Desert/Landscape/Roads/SM_Road_\\d+\\."}
+      - {class: sand, actor_label_regex: "^Landscape\\d*$"}

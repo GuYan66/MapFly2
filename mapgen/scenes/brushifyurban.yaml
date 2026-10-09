@@ -1,0 +1,39 @@
+schema_version: 1
+scene_id: brushifyurban
+ue_level: /Game/Brushify/DesignPacks/Urban/Buildings/Maps/UrbanBuildings/UrbanBuildings
+
+# UE 4.27.2 project: BrushifyUrban. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured flyable polygon.
+world:
+  bounds_ue_cm: [-120000.0, 40000.0, -160000.0, 0.0]
+  player_start_ue_cm: [-52511.046875, -71864.1015625, 2975.140625, -5.000002384185791]
+  default_flight_z_ue_cm: 3500.0
+  flyable_polygon_ue_cm:
+    - [-103380.0, -145040.0]
+    - [40000.0, -143820.0]
+    - [40000.0, -15810.0]
+    - [-101990.0, -16160.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - "^BP_Residential_.*$"
+      - "^BP_Highrise_.*$"
+      - "^BP_CityLowBuildings.*$"
+      - "^BP_CityBlock_(?:Square|LowBuildings).*$"
+      - "^S_Residential_03_Floor_Small$"
+  environment:
+    max_fill_hole_area_px: 16
+    component_rules:
+      - {class: road, asset_path_regex: "/Geometry/Decorations/Roads/"}
+      - {class: park, asset_path_regex: "/Decorations/Park/Grounds_01/"}
+      - {class: residential_land, actor_label_regex: "^BP_CityBlock_Foundation(?:_Thin)?\\d*$", asset_path_regex: "/Engine/BasicShapes/Cube\\.Cube$"}

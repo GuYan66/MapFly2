@@ -1,0 +1,35 @@
+schema_version: 1
+scene_id: moderncity
+ue_level: /Game/ModernCityBundle/Maps/DemoMap
+
+# UE 4.27.2 project: ModernCityBundle. Default editor map.
+# Capture bounds are padded to the 200 m tile grid around the measured flyable polygon.
+world:
+  bounds_ue_cm: [-20000.0, 80000.0, -20000.0, 80000.0]
+  player_start_ue_cm: [29060.0, 33640.0, 71.99998474121094, 0.0]
+  default_flight_z_ue_cm: 3000.0
+  flyable_polygon_ue_cm:
+    - [-15750.0, -10650.0]
+    - [74490.0, -9220.0]
+    - [74640.0, 79030.0]
+    - [-15320.0, 78890.0]
+
+capture:
+  strategy: fixed_grid
+  tile_size_ue_cm: 20000.0
+  output_tile_size_px: 1024
+  capture_z_offset_ue_cm: 60000.0
+  satellite_overlap_ratio: 0.1
+  osm_output_size_px: 2048
+
+semantics:
+  style: osm_carto
+  building:
+    actor_label_regex:
+      - '^B_Building_[LMS]_\d{2}[ab]?\d*$'
+  environment:
+    component_rules:
+      # Road, kerb and side-walk polygons share one component in these street meshes.
+      - {class: road, asset_path_regex: '^/Game/ModernCityBundle/Meshes/Streets/SM_(StreetLong|CrossRoad(_T)?|Street_L_Turn)\.'}
+      # Block ground meshes use the MI_SideWalk material and are separate from the streets.
+      - {class: residential_land, asset_path_regex: '^/Game/ModernCityBundle/Meshes/Streets/SM_BlockGround_(Large|Mid|Small)\.'}

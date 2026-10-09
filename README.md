@@ -1,6 +1,6 @@
 # MapFly
 
-[![Project Page](https://img.shields.io/badge/Website-online-27AE60.svg)](https://GuYan66.github.io/MapFly/)
+[![Project Page](https://img.shields.io/badge/Website-online-27AE60.svg)](https://GuYan66.github.io/MapFly-Website/)
 [![Dataset](https://img.shields.io/badge/Dataset-MapFly--13K-blue)](https://huggingface.co/datasets/EzGuYan/MapFly)
 [![Environment](https://img.shields.io/badge/Environment-MapFly_DataGen-6f42c1)](https://huggingface.co/datasets/EzGuYan/MapFly_DataGen)
 
@@ -8,7 +8,7 @@
 
 MapFly is a benchmark for prior-map-guided aerial visual navigation: a UAV flies from a first-person view and an annotated 2D map that marks the goal, without route instructions or a language description of the target. This repository is the toolkit (task construction, data collection, map rendering, closed-loop evaluation). MapFly-13K, Linux UE packages, scene bundles, and MapFly-Agent are linked above.
 
-![MapFly overview](website/assets/project-overview.webp)
+![MapFly overview](images/project-overview.webp)
 
 Four evaluation tracks cross static / live position cues (P0 / P1) with route-free / route-assisted maps (R0 / R1):
 
@@ -146,5 +146,4 @@ python scripts/render_episode_maps.py --run data/smoke/smallcity --map-type all
 ## License
 
 MIT ([LICENSE](LICENSE)). UE packages keep their Unreal / Marketplace licenses
-and are for research use with this benchmark. The project website template is
-CC BY-SA 4.0 ([website/TEMPLATE-NOTICE.md](website/TEMPLATE-NOTICE.md)).
+and are for research use with this benchmark.

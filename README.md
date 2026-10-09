@@ -3,6 +3,8 @@
 [![Project Page](https://img.shields.io/badge/Project_Page-MapFly-087b83)](https://GuYan66.github.io/MapFly/)
 [![Paper](https://img.shields.io/badge/Paper-PDF-b31b1b)](website/assets/MapFly.pdf)
 [![Video](https://img.shields.io/badge/Video-Overview-546e7a)](https://GuYan66.github.io/MapFly/#video)
+[![Dataset](https://img.shields.io/badge/Dataset-MapFly--13K-blue)](https://huggingface.co/datasets/EzGuYan/MapFly)
+[![UE Environments](https://img.shields.io/badge/UE_Environments-MapFly_DataGen-6f42c1)](https://huggingface.co/datasets/EzGuYan/MapFly_DataGen)
 
 ![MapFly overview: toolkit, dataset, reference policy, and four evaluation tracks](website/assets/project-overview.webp)
 
@@ -46,12 +48,15 @@ data generation toolchain, dataset, model, and four navigation demonstrations.
 
 | What | Where | Goes to |
 |---|---|---|
-| MapFly-13K episodes | HF dataset `EzGuYan/MapFly`, `original_data/<scene>.zip` (split archives) | `dataset_root` (default `data/mapfly13k/`) |
-| Linux UE packages | HF dataset `EzGuYan/MapFly_DataGen`, `ue/<Package>.zip` | `assets/ue/` |
-| Scene bundles (maps, building geometry) | HF dataset `EzGuYan/MapFly_DataGen`, `bundles/<scene>.zip` | `SceneBundles/` |
+| MapFly-13K episodes | [EzGuYan/MapFly](https://huggingface.co/datasets/EzGuYan/MapFly/tree/main/original_data), `original_data/` | `dataset_root` (default `data/mapfly13k/`) |
+| Linux UE packages | [EzGuYan/MapFly_DataGen](https://huggingface.co/datasets/EzGuYan/MapFly_DataGen/tree/main/ue), `ue/` | `assets/ue/` |
+| Scene bundles (maps, building geometry) | Not yet uploaded; see [scene capture instructions](docs/new_scene.md) to generate your own | `SceneBundles/` |
 | MapFly-Agent checkpoints | HF model `EzGuYan/MapFly-Agent` | see `starVLA/examples/uav/` |
 
 ## Install
+
+The data-generation resource repository currently contains the UE environments.
+Scene bundles are not included in the current upload.
 
 Linux, Python 3.10+, an NVIDIA GPU for the simulator. From the repository root:
 
